@@ -22,7 +22,7 @@ defmodule UUIDv7 do
   @doc """
   Casts to a UUID.
   """
-  @spec cast(t | raw | any) :: {:ok, t} | :error
+  @spec cast(t() | raw() | any()) :: {:ok, t()} | :error
   def cast(
         <<a1, a2, a3, a4, a5, a6, a7, a8, ?-, b1, b2, b3, b4, ?-, c1, c2, c3, c4, ?-, d1, d2, d3,
           d4, ?-, e1, e2, e3, e4, e5, e6, e7, e8, e9, e10, e11, e12>>
@@ -42,7 +42,7 @@ defmodule UUIDv7 do
   @doc """
   Same as `cast/1` but raises `Ecto.CastError` on invalid arguments.
   """
-  @spec cast!(t | raw | any) :: t
+  @spec cast!(t() | raw() | any()) :: t()
   def cast!(value) do
     case cast(value) do
       {:ok, hex_uuid} -> hex_uuid
@@ -79,7 +79,7 @@ defmodule UUIDv7 do
   @doc """
   Converts a string representing a UUID into a raw binary.
   """
-  @spec dump(t | any) :: {:ok, raw} | :error
+  @spec dump(t() | any()) :: {:ok, raw()} | :error
   def dump(
         <<a1, a2, a3, a4, a5, a6, a7, a8, ?-, b1, b2, b3, b4, ?-, c1, c2, c3, c4, ?-, d1, d2, d3,
           d4, ?-, e1, e2, e3, e4, e5, e6, e7, e8, e9, e10, e11, e12>>
@@ -130,7 +130,7 @@ defmodule UUIDv7 do
   @doc """
   Same as `dump/1` but raises `Ecto.ArgumentError` on invalid arguments.
   """
-  @spec dump!(t | any) :: raw
+  @spec dump!(t() | any()) :: raw()
   def dump!(value) do
     case dump(value) do
       {:ok, raw_uuid} -> raw_uuid
@@ -141,7 +141,7 @@ defmodule UUIDv7 do
   @doc """
   Converts a binary UUID into a string.
   """
-  @spec load(raw | any) :: {:ok, t} | :error
+  @spec load(raw() | any()) :: {:ok, t} | :error
   def load(<<_::128>> = raw_uuid), do: {:ok, encode(raw_uuid)}
 
   def load(<<_::64, ?-, _::32, ?-, _::32, ?-, _::32, ?-, _::96>> = string) do
@@ -155,7 +155,7 @@ defmodule UUIDv7 do
   @doc """
   Same as `load/1` but raises `Ecto.ArgumentError` on invalid arguments.
   """
-  @spec load!(raw | any) :: t
+  @spec load!(raw() | any()) :: t()
   def load!(value) do
     case load(value) do
       {:ok, hex_uuid} -> hex_uuid
@@ -166,25 +166,25 @@ defmodule UUIDv7 do
   @doc """
   Generates a random, version 4 UUID.
   """
-  @spec generate() :: t
-  def generate(), do: encode(bingenerate())
+  @spec generate() :: t()
+  def generate, do: encode(bingenerate())
 
   @doc """
   Generates a random, version 7 UUID in the binary format.
   """
   @spec bingenerate() :: raw()
-  def bingenerate(), do: :erlang.nif_error(:nif_not_loaded)
+  def bingenerate, do: :erlang.nif_error(:nif_not_loaded)
 
   @doc """
   Generates a random, version 7 UUID based on the timestamp (ns).
   """
+  @spec bingenerate_from_ns(non_neg_integer()) :: raw()
   def bingenerate_from_ns(_nanoseconds), do: :erlang.nif_error(:nif_not_loaded)
 
-  # Callback invoked by autogenerate fields.
   @doc false
   def autogenerate, do: generate()
 
-  @spec encode(raw) :: t()
+  @spec encode(raw()) :: t()
   defp encode(
          <<a1::4, a2::4, a3::4, a4::4, a5::4, a6::4, a7::4, a8::4, b1::4, b2::4, b3::4, b4::4,
            c1::4, c2::4, c3::4, c4::4, d1::4, d2::4, d3::4, d4::4, e1::4, e2::4, e3::4, e4::4,
@@ -215,5 +215,6 @@ defmodule UUIDv7 do
   defp e(15), do: ?f
 
   @doc false
+  @spec integration(t()) :: binary()
   def integration(_uuid), do: :erlang.nif_error(:nif_not_loaded)
 end
