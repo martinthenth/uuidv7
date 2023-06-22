@@ -1,21 +1,23 @@
 defmodule UUIDv7Test do
   use ExUnit.Case
 
-  describe "add/2" do
-    test "adds the numbers" do
-      assert UUIDv7.add(1, 3) == 4
+  describe "now/0" do
+    test "generates an UUID" do
+      raw_uuid = UUIDv7.now()
+      str_uuid = encode(raw_uuid)
+
+      assert is_binary(str_uuid)
+      assert UUIDv7.integration(raw_uuid) == Ecto.UUID.load!(raw_uuid)
     end
   end
 
-  describe "generate/0" do
+  describe "new/1" do
     test "generates an UUID" do
-      uuid = UUIDv7.generate()
+      raw_uuid = UUIDv7.new(1_687_467_090_902)
+      str_uuid = encode(raw_uuid)
 
-      # IO.inspect(UUIDv7.load(uuid))
-      IO.inspect(encode(uuid))
-      # IO.inspect(UUIDv7.load(encode(uuid)))
-
-      assert UUIDv7.load(uuid) == Ecto.UUID.load!(uuid)
+      assert String.starts_with?(str_uuid, "0188e4e0-63d6-")
+      assert UUIDv7.integration(raw_uuid) == Ecto.UUID.load!(raw_uuid)
     end
   end
 
