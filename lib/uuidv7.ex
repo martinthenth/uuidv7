@@ -213,8 +213,4 @@ defmodule UUIDv7 do
   defp e(13), do: ?d
   defp e(14), do: ?e
   defp e(15), do: ?f
-
-  @doc false
-  @spec integration(t()) :: binary()
-  def integration(_uuid), do: :erlang.nif_error(:nif_not_loaded)
 end
