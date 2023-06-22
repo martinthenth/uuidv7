@@ -1,9 +1,66 @@
 defmodule UUIDv7Test do
   use ExUnit.Case
 
-  describe "now/0" do
-    test "generates an UUID" do
-      raw_uuid = UUIDv7.now()
+  """
+  uuid: 0188e4e0-63d6-7c69-aa53-6daf23d1cfa3
+  uuid bytes: [224, 228, 136, 1, 214, 99, 105, 124, 170, 83, 109, 175, 35, 209, 207, 163]
+  """
+
+  describe "type/0" do
+    test "returns the type" do
+      assert UUIDv7.type() == :uuid
+    end
+  end
+
+  describe "cast/1" do
+    test "casts the binary to string" do
+      assert UUIDv7.cast(
+               <<224, 228, 136, 1, 214, 99, 105, 124, 170, 83, 109, 175, 35, 209, 207, 163>>
+             ) ==
+               {:ok, "0188e4e0-63d6-7c69-aa53-6daf23d1cfa3"}
+    end
+
+    test "casts the string to string" do
+      assert UUIDv7.cast("0188e512-3973-73b1-ba3f-06767bf1aad9") ==
+               {:ok, "0188e512-3973-73b1-ba3f-06767bf1aad9"}
+    end
+
+    test "returns an error when invalid value is given" do
+      assert UUIDv7.cast("123") == :error
+    end
+  end
+
+  describe "dump/2" do
+    test "dumps the binary to a binary" do
+      assert UUIDv7.dump("0188e4e0-63d6-7c69-aa53-6daf23d1cfa3") ==
+               {:ok,
+                <<224, 228, 136, 1, 214, 99, 105, 124, 170, 83, 109, 175, 35, 209, 207, 163>>}
+    end
+  end
+
+  describe "load/1" do
+    test "loads the binary into a string" do
+      assert UUIDv7.load(
+               <<224, 228, 136, 1, 214, 99, 105, 124, 170, 83, 109, 175, 35, 209, 207, 163>>
+             ) == {:ok, "0188e4e0-63d6-7c69-aa53-6daf23d1cfa3"}
+    end
+
+    test "loads the string into a string" do
+      assert_raise ArgumentError, fn ->
+        UUIDv7.load("0188e512-3973-73b1-ba3f-06767bf1aad9")
+      end
+    end
+  end
+
+  describe "generate/0" do
+    test "generates a string UUID" do
+      assert is_binary(UUIDv7.generate())
+    end
+  end
+
+  describe "bingenerate/0" do
+    test "generates a binary UUID" do
+      raw_uuid = UUIDv7.bingenerate()
       str_uuid = encode(raw_uuid)
 
       assert is_binary(str_uuid)
@@ -11,13 +68,19 @@ defmodule UUIDv7Test do
     end
   end
 
-  describe "new/1" do
+  describe "bingenerate_from_ns/1" do
     test "generates an UUID" do
-      raw_uuid = UUIDv7.new(1_687_467_090_902)
+      raw_uuid = UUIDv7.bingenerate_from_ns(1_687_467_090_902)
       str_uuid = encode(raw_uuid)
 
       assert String.starts_with?(str_uuid, "0188e4e0-63d6-")
       assert UUIDv7.integration(raw_uuid) == Ecto.UUID.load!(raw_uuid)
+    end
+  end
+
+  describe "autogenerate/0" do
+    test "generates a string UUID" do
+      assert is_binary(UUIDv7.autogenerate())
     end
   end
 
@@ -49,3 +112,15 @@ defmodule UUIDv7Test do
   defp e(14), do: ?e
   defp e(15), do: ?f
 end
+
+# "0188e50f-e4aa-76ad-b9a2-e23fcfc0d0c3"
+# [48, 102, 101, 53, 56, 56, 48, 49, 45, 97, 97, 101, 52, 45, 97, 100, 55, 54, 45, 98, 57, 97, 50, 45, 101, 50, 51, 102, 99, 102, 99, 48, 100, 48, 99, 51]
+# ."0188e4e0-63d6-7a24-96ba-3a8b6096ad45"
+# [101, 48, 101, 52, 56, 56, 48, 49, 45, 100, 54, 54, 51, 45, 50, 52, 55, 97, 45, 57, 54, 98, 97, 45, 51, 97, 56, 98, 54, 48, 57, 54, 97, 100, 52, 53]
+
+# "0188e512-3973-73b1-ba3f-06767bf1aad9"
+# [49, 50, 101, 53, 56, 56, 48, 49, 45, 55, 51, 51, 57, 45, 98, 49, 55, 51, 45, 98, 97, 51, 102, 45, 48, 54, 55, 54, 55, 98, 102, 49, 97, 97, 100, 57]
+# ."0188e4e0-63d6-77af-a504-ddd5b6c64cfe"
+# [101, 48, 101, 52, 56, 56, 48, 49, 45, 100, 54, 54, 51, 45, 97, 102, 55, 55, 45, 97, 53, 48, 52, 45, 100, 100, 100, 53, 98, 54, 99, 54, 52, 99, 102, 101]
+# "e0e48801-d663-af77-a504-ddd5b6c64cfe"
+# [101, 48, 101, 52, 56, 56, 48, 49, 45, 100, 54, 54, 51, 45, 97, 102, 55, 55, 45, 97, 53, 48, 52, 45, 100, 100, 100, 53, 98, 54, 99, 54, 52, 99, 102, 101]
