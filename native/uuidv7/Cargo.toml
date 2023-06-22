@@ -11,4 +11,4 @@ crate-type = ["cdylib"]
 
 [dependencies]
 rustler = "0.29.0"
-uuid = { version = "1.3.4", features = ["v4"] }
+uuid = { version = "1.3.4", features = ["v7"] }
