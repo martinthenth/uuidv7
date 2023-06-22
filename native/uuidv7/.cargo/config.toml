@@ -1,5 +1,5 @@
 [target.'cfg(target_os = "macos")']
-rustflags = [
-    "-C", "link-arg=-undefined",
-    "-C", "link-arg=dynamic_lookup",
-]
+rustflags = ["-C", "link-arg=-undefined", "-C", "link-arg=dynamic_lookup"]
+
+[target.'cfg(any(unix))']
+rustflags = ["--cfg", "uuid_unstable"]
