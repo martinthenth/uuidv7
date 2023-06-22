@@ -1,11 +1,6 @@
 defmodule UUIDv7Test do
   use ExUnit.Case
 
-  """
-  uuid: 0188e4e0-63d6-7c69-aa53-6daf23d1cfa3
-  uuid bytes: [224, 228, 136, 1, 214, 99, 105, 124, 170, 83, 109, 175, 35, 209, 207, 163]
-  """
-
   describe "type/0" do
     test "returns the type" do
       assert UUIDv7.type() == :uuid
@@ -31,7 +26,7 @@ defmodule UUIDv7Test do
   end
 
   describe "dump/2" do
-    test "dumps the binary to a binary" do
+    test "dumps the string to a binary" do
       assert UUIDv7.dump("0188e4e0-63d6-7c69-aa53-6daf23d1cfa3") ==
                {:ok,
                 <<224, 228, 136, 1, 214, 99, 105, 124, 170, 83, 109, 175, 35, 209, 207, 163>>}
