@@ -1,0 +1,13 @@
+[package]
+name = "uuidv7"
+version = "0.1.0"
+authors = []
+edition = "2021"
+
+[lib]
+name = "uuidv7"
+path = "src/lib.rs"
+crate-type = ["cdylib"]
+
+[dependencies]
+rustler = "0.29.0"
