@@ -6,21 +6,29 @@ defmodule UUIDv7 do
   use Rustler, otp_app: :uuidv7, crate: "uuidv7"
 
   @doc """
-  Hello world.
+  Generates a random, version 7 UUID.
 
   ## Examples
 
-      iex> UUIDv7.hello()
-      :world
+      iex> UUIDv7.now()
+      "0188e521-4eaa-7d2e-8226-824f8122dbf8"
 
   """
-  # When your NIF is loaded, it will override this function.
-  def add(_a, _b), do: :erlang.nif_error(:nif_not_loaded)
+  @spec now :: binary()
+  def now(), do: :erlang.nif_error(:nif_not_loaded)
 
   @doc """
-  Hello world.
-  """
-  def generate(), do: :erlang.nif_error(:nif_not_loaded)
+  Generates a random, version 7 UUID based on the timestamp (ns).
 
-  def load(_uuid), do: :erlang.nif_error(:nif_not_loaded)
+  ## Examples
+
+      iex> UUIDv7.new(1_687_467_090_902)
+      "0188e521-4eaa-7d2e-8226-824f8122dbf8"
+
+  """
+  @spec new(non_neg_integer()) :: binary()
+  def new(_timestamp), do: :erlang.nif_error(:nif_not_loaded)
+
+  @doc false
+  def integration(_uuid), do: :erlang.nif_error(:nif_not_loaded)
 end
