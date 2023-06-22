@@ -1,4 +1,4 @@
-use rustler::{Binary, OwnedBinary};
+use rustler::OwnedBinary;
 use uuid::{NoContext, Timestamp, Uuid};
 
 #[rustler::nif]
@@ -25,12 +25,4 @@ fn to_binary(uuid: Uuid) -> OwnedBinary {
     return binary;
 }
 
-#[rustler::nif]
-fn integration(uuid: Binary) -> String {
-    Uuid::from_slice(uuid.as_slice()).unwrap().to_string()
-}
-
-rustler::init!(
-    "Elixir.UUIDv7",
-    [bingenerate, bingenerate_from_ns, integration]
-);
+rustler::init!("Elixir.UUIDv7", [bingenerate, bingenerate_from_ns]);
