@@ -10,5 +10,6 @@ path = "src/lib.rs"
 crate-type = ["cdylib"]
 
 [dependencies]
+base64 = "0.21.2"
 rustler = "0.29.0"
-uuid = { version = "1.3.4", features = ["v7"] }
+uuid = { version = "1.3.4", features = ["v7", "serde"] }

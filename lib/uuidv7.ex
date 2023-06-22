@@ -21,4 +21,6 @@ defmodule UUIDv7 do
   Hello world.
   """
   def generate(), do: :erlang.nif_error(:nif_not_loaded)
+
+  def load(_uuid), do: :erlang.nif_error(:nif_not_loaded)
 end

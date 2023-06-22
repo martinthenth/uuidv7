@@ -18,6 +18,9 @@ defmodule UUIDv7.MixProject do
 
   # Run "mix help deps" to learn about dependencies.
   defp deps do
-    [{:rustler, "~> 0.29.0"}]
+    [
+      {:rustler, "~> 0.29.0"},
+      {:ecto, "~> 3.10"}
+    ]
   end
 end
