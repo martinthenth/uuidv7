@@ -9,9 +9,6 @@ name = "uuidv7"
 path = "src/lib.rs"
 crate-type = ["cdylib"]
 
-[dependencies.rustler]
-version = "0.29.0"
-
-[dependencies.uuid]
-version = "1.3.4"
-features = ["v4"]
+[dependencies]
+rustler = "0.29.0"
+uuid = { version = "1.3.4", features = ["v4"] }
