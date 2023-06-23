@@ -4,7 +4,7 @@ defmodule UUIDv7 do
   """
 
   use Ecto.Type
-  use Rustler, otp_app: :uuidv7, crate: "uuidv7"
+  use Rustler, otp_app: :uuidv7, crate: "uuidv7", skip_compilation?: true
 
   @typedoc """
   A hex-encoded UUID string.
