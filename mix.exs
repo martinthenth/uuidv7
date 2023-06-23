@@ -23,7 +23,9 @@ defmodule UUIDv7.MixProject do
       {:ecto, "~> 3.10"},
       {:credo, "~> 1.6", only: [:dev, :test], runtime: false},
       {:dialyxir, "~> 1.0", only: [:dev], runtime: false},
-      {:ex_doc, "~> 0.27", only: :dev, runtime: false}
+      {:ex_doc, "~> 0.27", only: :dev, runtime: false},
+      {:benchee, "~> 1.1", only: :dev},
+      {:uniq, "~> 0.1", only: :dev}
     ]
   end
 end
