@@ -85,9 +85,16 @@ defmodule UUIDv7 do
 
   The `Ecto.Type` is heavily borrowed from from [Ecto](https://github.com/elixir-ecto/ecto). Thanks!
   """
+  version = Mix.Project.config()[:version]
 
   use Ecto.Type
-  use Rustler, otp_app: :uuidv7, crate: "uuidv7", skip_compilation?: true
+
+  use RustlerPrecompiled,
+    otp_app: :uuidv7,
+    crate: "uuidv7",
+    base_url: "https://github.com/martinthenth/uuidv7/releases/download/v#{version}",
+    targets: RustlerPrecompiled.Config.default_targets(),
+    version: version
 
   @typedoc """
   A hex-encoded UUID string.
