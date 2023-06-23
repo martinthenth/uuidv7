@@ -41,7 +41,19 @@ defmodule UUIDv7.MixProject do
     [
       maintainers: ["Martin Nijboer"],
       licenses: ["MIT"],
-      links: %{"GitHub" => @source_url, "Changelog" => @changelog_url}
+      links: %{"GitHub" => @source_url, "Changelog" => @changelog_url},
+      files: [
+        "lib",
+        "native/uuidv7/.cargo",
+        "native/uuidv7/src",
+        "native/uuidv7/Cargo*",
+        "checksum-*.exs",
+        ".formatter.exs",
+        "mix.exs",
+        "README*",
+        "LICENSE*",
+        "CHANGELOG*"
+      ]
     ]
   end
 
