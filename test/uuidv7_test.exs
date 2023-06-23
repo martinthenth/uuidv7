@@ -48,28 +48,32 @@ defmodule UUIDv7Test do
   end
 
   describe "generate/0" do
-    test "generates a string UUID" do
-      assert is_binary(UUIDv7.generate())
-    end
-  end
-
-  describe "bingenerate/0" do
-    test "generates a binary UUID" do
-      raw_uuid = UUIDv7.bingenerate()
-      str_uuid = UUIDv7.load!(raw_uuid)
+    test "generates an UUID" do
+      str_uuid = UUIDv7.generate()
+      raw_uuid = UUIDv7.dump!(str_uuid)
 
       assert is_binary(str_uuid)
-      assert UUIDv7.dump!(str_uuid) == raw_uuid
+      assert UUIDv7.cast!(raw_uuid) == str_uuid
     end
   end
 
-  describe "bingenerate_from_ns/1" do
+  describe "generate/1" do
     test "generates an UUID" do
-      raw_uuid = UUIDv7.bingenerate_from_ns(1_687_467_090_902)
-      str_uuid = UUIDv7.load!(raw_uuid)
+      str_uuid = UUIDv7.generate_from_ns(1_687_467_090_902)
+      raw_uuid = UUIDv7.dump!(str_uuid)
 
       assert String.starts_with?(str_uuid, "0188e4e0-63d6-")
-      assert UUIDv7.dump!(str_uuid) == raw_uuid
+      assert UUIDv7.cast!(raw_uuid) == str_uuid
+    end
+  end
+
+  describe "generate_from_ns/1" do
+    test "generates an UUID" do
+      str_uuid = UUIDv7.generate_from_ns(1_687_467_090_902)
+      raw_uuid = UUIDv7.dump!(str_uuid)
+
+      assert String.starts_with?(str_uuid, "0188e4e0-63d6-")
+      assert UUIDv7.cast!(raw_uuid) == str_uuid
     end
   end
 

@@ -1,28 +1,16 @@
-use rustler::OwnedBinary;
 use uuid::{NoContext, Timestamp, Uuid};
 
 #[rustler::nif]
-fn bingenerate() -> OwnedBinary {
-    to_binary(Uuid::now_v7())
+fn generate() -> String {
+    Uuid::now_v7().to_string()
 }
 
 #[rustler::nif]
-fn bingenerate_from_ns(millis: u64) -> OwnedBinary {
+fn generate_from_ns(millis: u64) -> String {
     let seconds = millis / 1000;
     let nanos = ((millis % 1000) * 1_000_000) as u32;
 
-    to_binary(Uuid::new_v7(Timestamp::from_unix(
-        NoContext, seconds, nanos,
-    )))
+    Uuid::new_v7(Timestamp::from_unix(NoContext, seconds, nanos)).to_string()
 }
 
-fn to_binary(uuid: Uuid) -> OwnedBinary {
-    let bytes = uuid.as_bytes().to_owned();
-    let mut binary: OwnedBinary = OwnedBinary::new(bytes.len()).unwrap();
-
-    binary.as_mut_slice().copy_from_slice(&bytes);
-
-    return binary;
-}
-
-rustler::init!("Elixir.UUIDv7", [bingenerate, bingenerate_from_ns]);
+rustler::init!("Elixir.UUIDv7", [generate, generate_from_ns]);
