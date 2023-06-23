@@ -161,23 +161,20 @@ defmodule UUIDv7 do
   @doc """
   Generates a random, version 7 UUID.
   """
-  @spec generate() :: t()
-  def generate, do: encode(bingenerate())
-
-  @doc """
-  Generates a random, version 7 UUID in the binary format.
-  """
-  @spec bingenerate() :: raw()
-  def bingenerate, do: :erlang.nif_error(:nif_not_loaded)
+  @spec generate() :: raw()
+  def generate, do: :erlang.nif_error(:nif_not_loaded)
 
   @doc """
   Generates a random, version 7 UUID based on the timestamp (ns).
   """
-  @spec bingenerate_from_ns(non_neg_integer()) :: raw()
-  def bingenerate_from_ns(_nanoseconds), do: :erlang.nif_error(:nif_not_loaded)
+  def generate(nanoseconds), do: generate_from_ns(nanoseconds)
 
   @doc false
-  @spec autogenerate() :: t()
+  @spec generate_from_ns(non_neg_integer()) :: raw()
+  def generate_from_ns(_nanoseconds), do: :erlang.nif_error(:nif_not_loaded)
+
+  @doc false
+  @spec autogenerate() :: binary()
   def autogenerate, do: generate()
 
   @spec encode(raw) :: t
