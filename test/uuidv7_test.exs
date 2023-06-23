@@ -55,6 +55,20 @@ defmodule UUIDv7Test do
       assert is_binary(str_uuid)
       assert UUIDv7.cast!(raw_uuid) == str_uuid
     end
+
+    test "is lexicographically sortable" do
+      uuid1 = UUIDv7.generate()
+      Process.sleep(1)
+      uuid2 = UUIDv7.generate()
+      Process.sleep(1)
+      uuid3 = UUIDv7.generate()
+      Process.sleep(1)
+      uuid4 = UUIDv7.generate()
+
+      assert uuid1 < uuid2
+      assert uuid2 < uuid3
+      assert uuid3 < uuid4
+    end
   end
 
   describe "generate/1" do
