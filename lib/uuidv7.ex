@@ -1,6 +1,6 @@
 defmodule UUIDv7 do
   @moduledoc """
-  A UUID version 7 implementation and `Ecto.Type` for Elixir - based on Rust.
+  A UUID v7 implementation and `Ecto.Type` for Elixir - based on Rust.
 
   This library defers the UUID v7 implementation to the Rust create [UUID](https://crates.io/crates/uuid)
   using an Erlang NIF. It includes an `Ecto.Type` to (auto-)generate version 7 UUIDs in `Ecto.Schema` and beyond.

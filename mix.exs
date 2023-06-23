@@ -12,7 +12,7 @@ defmodule UUIDv7.MixProject do
       elixir: "~> 1.13",
       start_permanent: Mix.env() == :prod,
       deps: deps(),
-      description: "A UUID version 7 implementation and Ecto.Type for Elixir - based on Rust",
+      description: "A UUID v7 implementation and Ecto.Type for Elixir - based on Rust",
       source_ref: @version,
       source_url: @source_url,
       docs: docs(),
