@@ -1,13 +1,15 @@
 # UUIDv7
 
-A UUIDv7 implementation and Ecto.Type for Elixir - based on Rust.
+A UUID version 7 implementation and `Ecto.Type` for Elixir - based on Rust.
 
 This library defers the UUID v7 implementation to the Rust create [UUID](https://crates.io/crates/uuid)
-using an Erlang NIF. It includes an Ecto.Type to generate version 7 UUIDs.
+using an Erlang NIF. It includes an `Ecto.Type` to (auto-)generate version 7 UUIDs in `Ecto.Schema` and beyond.
 
 Thanks to Rust, it is ~72% faster in generating version 7 UUIDs than the Elixir implementation
-of version 4 UUIDs by Ecto. The underlying library marks the v7 UUID implementation as experimental,
-so please be aware that it may change.
+of version 4 UUIDs by Ecto. See the benchmarks for more details.
+
+> The underlying Rust library marks the v7 UUID implementation as experimental, so please be aware
+> that it _could_ change; but you will be notified of that in the [CHANGELOG](https://github.com/martinthenth/uuidv7/blob/main/CHANGELOG.md). (23-06-2023)
 
 ## Installation
 
@@ -21,7 +23,13 @@ end
 
 ## Usage
 
-**TODO: Add usage**
+In your database schema, change primary key attribute from `:binary_id` to `UUIDv7`:
+
+```elixir
+def App.Schemas.User do
+  @primary_key {:id, UUIDv7, autogenerate: true}
+end
+```
 
 ## Benchmark
 
@@ -70,3 +78,9 @@ uuidv7                   104 B
 uniq (uuid v7)        214.00 B - 2.06x memory usage +110.00 B
 ecto (uuid v4)        214.00 B - 2.06x memory usage +110.00 B
 ```
+
+## Credits
+
+This library is based on the Rust library [UUID](https://crates.io/crates/uuid). Thank you!
+
+The `Ecto.Type` is heavily borrowed from from [Ecto](https://github.com/elixir-ecto/ecto). Thanks!
