@@ -10,14 +10,14 @@ defmodule UUIDv7Test do
   describe "cast/1" do
     test "casts the binary to string" do
       assert UUIDv7.cast(
-               <<224, 228, 136, 1, 214, 99, 105, 124, 170, 83, 109, 175, 35, 209, 207, 163>>
+               <<1, 136, 229, 144, 13, 202, 124, 237, 169, 13, 195, 131, 131, 118, 190, 203>>
              ) ==
-               {:ok, "0188e4e0-63d6-7c69-aa53-6daf23d1cfa3"}
+               {:ok, "0188e590-0dca-7ced-a90d-c3838376becb"}
     end
 
     test "casts the string to string" do
-      assert UUIDv7.cast("0188e512-3973-73b1-ba3f-06767bf1aad9") ==
-               {:ok, "0188e512-3973-73b1-ba3f-06767bf1aad9"}
+      assert UUIDv7.cast("0188e590-0dca-7ced-a90d-c3838376becb") ==
+               {:ok, "0188e590-0dca-7ced-a90d-c3838376becb"}
     end
 
     test "returns an error when invalid value is given" do
@@ -27,22 +27,22 @@ defmodule UUIDv7Test do
 
   describe "dump/2" do
     test "dumps the string to a binary" do
-      assert UUIDv7.dump("0188e4e0-63d6-7c69-aa53-6daf23d1cfa3") ==
+      assert UUIDv7.dump("0188e590-0dca-7ced-a90d-c3838376becb") ==
                {:ok,
-                <<224, 228, 136, 1, 214, 99, 105, 124, 170, 83, 109, 175, 35, 209, 207, 163>>}
+                <<1, 136, 229, 144, 13, 202, 124, 237, 169, 13, 195, 131, 131, 118, 190, 203>>}
     end
   end
 
   describe "load/1" do
     test "loads the binary into a string" do
       assert UUIDv7.load(
-               <<224, 228, 136, 1, 214, 99, 105, 124, 170, 83, 109, 175, 35, 209, 207, 163>>
-             ) == {:ok, "0188e4e0-63d6-7c69-aa53-6daf23d1cfa3"}
+               <<1, 136, 229, 144, 13, 202, 124, 237, 169, 13, 195, 131, 131, 118, 190, 203>>
+             ) == {:ok, "0188e590-0dca-7ced-a90d-c3838376becb"}
     end
 
     test "loads the string into a string" do
       assert_raise ArgumentError, fn ->
-        UUIDv7.load("0188e512-3973-73b1-ba3f-06767bf1aad9")
+        UUIDv7.load("0188e590-0dca-7ced-a90d-c3838376becb")
       end
     end
   end
