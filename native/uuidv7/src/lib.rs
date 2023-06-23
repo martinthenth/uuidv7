@@ -17,8 +17,8 @@ fn bingenerate_from_ns(millis: u64) -> OwnedBinary {
 }
 
 fn to_binary(uuid: Uuid) -> OwnedBinary {
-    let bytes = uuid.to_bytes_le();
-    let mut binary = OwnedBinary::new(bytes.len()).unwrap();
+    let bytes = uuid.as_bytes().to_owned();
+    let mut binary: OwnedBinary = OwnedBinary::new(bytes.len()).unwrap();
 
     binary.as_mut_slice().copy_from_slice(&bytes);
 
