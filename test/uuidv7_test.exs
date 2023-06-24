@@ -73,20 +73,20 @@ defmodule UUIDv7Test do
 
   describe "generate/1" do
     test "generates an UUID" do
-      str_uuid = UUIDv7.generate_from_ns(1_687_467_090_902)
+      str_uuid = UUIDv7.generate_from_ms(1_687_467_090_902)
       raw_uuid = UUIDv7.dump!(str_uuid)
 
-      assert String.starts_with?(str_uuid, "0188e4e0-63d6-")
+      assert String.starts_with?(str_uuid, "0188e4e0-63d6-7")
       assert UUIDv7.cast!(raw_uuid) == str_uuid
     end
   end
 
-  describe "generate_from_ns/1" do
+  describe "generate_from_ms/1" do
     test "generates an UUID" do
-      str_uuid = UUIDv7.generate_from_ns(1_687_467_090_902)
+      str_uuid = UUIDv7.generate_from_ms(1_687_467_090_902)
       raw_uuid = UUIDv7.dump!(str_uuid)
 
-      assert String.starts_with?(str_uuid, "0188e4e0-63d6-")
+      assert String.starts_with?(str_uuid, "0188e4e0-63d6-7")
       assert UUIDv7.cast!(raw_uuid) == str_uuid
     end
   end

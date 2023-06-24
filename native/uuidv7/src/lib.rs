@@ -6,11 +6,11 @@ fn generate() -> String {
 }
 
 #[rustler::nif]
-fn generate_from_ns(millis: u64) -> String {
+fn generate_from_ms(millis: u64) -> String {
     let seconds = millis / 1000;
     let nanos = ((millis % 1000) * 1_000_000) as u32;
 
     Uuid::new_v7(Timestamp::from_unix(NoContext, seconds, nanos)).to_string()
 }
 
-rustler::init!("Elixir.UUIDv7", [generate, generate_from_ns]);
+rustler::init!("Elixir.UUIDv7", [generate, generate_from_ms]);
