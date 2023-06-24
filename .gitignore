@@ -24,3 +24,6 @@ uuidv7-*.tar
 
 # Temporary files, for example, from tests.
 /tmp/
+
+# Build artifacts
+/priv/native
