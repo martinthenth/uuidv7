@@ -112,14 +112,14 @@ defmodule UUIDv7 do
   def generate, do: :erlang.nif_error(:nif_not_loaded)
 
   @doc """
-  Generates a random, version 7 UUID based on the timestamp (ns).
+  Generates a random, version 7 UUID based on the timestamp (ms).
   """
   @spec generate(non_neg_integer()) :: t()
-  def generate(nanoseconds), do: generate_from_ns(nanoseconds)
+  def generate(ms), do: generate_from_ms(ms)
 
   @doc false
-  @spec generate_from_ns(non_neg_integer()) :: t()
-  def generate_from_ns(_nanoseconds), do: :erlang.nif_error(:nif_not_loaded)
+  @spec generate_from_ms(non_neg_integer()) :: t()
+  def generate_from_ms(_ms), do: :erlang.nif_error(:nif_not_loaded)
 
   @doc false
   @spec autogenerate() :: t()
