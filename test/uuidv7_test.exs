@@ -71,16 +71,6 @@ defmodule UUIDv7Test do
     end
   end
 
-  describe "generate/1" do
-    test "generates an UUID" do
-      str_uuid = UUIDv7.generate_from_ms(1_687_467_090_902)
-      raw_uuid = UUIDv7.dump!(str_uuid)
-
-      assert String.starts_with?(str_uuid, "0188e4e0-63d6-7")
-      assert UUIDv7.cast!(raw_uuid) == str_uuid
-    end
-  end
-
   describe "generate_from_ms/1" do
     test "generates an UUID" do
       str_uuid = UUIDv7.generate_from_ms(1_687_467_090_902)
@@ -88,6 +78,17 @@ defmodule UUIDv7Test do
 
       assert String.starts_with?(str_uuid, "0188e4e0-63d6-7")
       assert UUIDv7.cast!(raw_uuid) == str_uuid
+    end
+
+    test "is lexicographically sortable" do
+      uuid1 = UUIDv7.generate(1_687_467_090_901)
+      uuid2 = UUIDv7.generate(1_687_467_090_902)
+      uuid3 = UUIDv7.generate(1_687_467_090_903)
+      uuid4 = UUIDv7.generate(1_687_467_090_904)
+
+      assert uuid1 < uuid2
+      assert uuid2 < uuid3
+      assert uuid3 < uuid4
     end
   end
 
