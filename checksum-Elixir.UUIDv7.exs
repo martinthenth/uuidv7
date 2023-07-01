@@ -1,8 +1,8 @@
 %{
-  "libuuidv7-v0.1.0-nif-2.16-aarch64-apple-darwin.so.tar.gz" => "sha256:34c252c251aab852a55532bf5dda65eb84934f8041e9ceed484006d03fa08b26",
-  "libuuidv7-v0.1.0-nif-2.16-aarch64-unknown-linux-gnu.so.tar.gz" => "sha256:b60932231a2d5379b57e7907c7ebd3cb086d08c1aa0e0304064646ef93a1adca",
-  "libuuidv7-v0.1.0-nif-2.16-riscv64gc-unknown-linux-gnu.so.tar.gz" => "sha256:aa083893b575373a53caf81fca44c746f3df1907382769b3ebaad4580445b3b5",
-  "libuuidv7-v0.1.0-nif-2.16-x86_64-apple-darwin.so.tar.gz" => "sha256:b167061e8751b0993dbd9ed9cf7ae9116476f34f88ce7ad6a105930c3841212c",
-  "libuuidv7-v0.1.0-nif-2.16-x86_64-unknown-linux-gnu.so.tar.gz" => "sha256:c85f7880f04a1f0a653c3cf615eccca484d36a8f90c6a4877eb840470fefb774",
-  "libuuidv7-v0.1.0-nif-2.16-x86_64-unknown-linux-musl.so.tar.gz" => "sha256:262b29e4f349a61b4feb00e047b690a1ad17987440cde8037319c924777e2a56",
+  "libuuidv7-v0.2.0-nif-2.16-aarch64-apple-darwin.so.tar.gz" => "sha256:3cbc6f3058903d040695ce233b1a46388ea44510d77e924dc4a13282010e34b5",
+  "libuuidv7-v0.2.0-nif-2.16-aarch64-unknown-linux-gnu.so.tar.gz" => "sha256:015c3694683c349d999b8d4200a634ff9dfcd5e478439a876faf6efd4f2e8501",
+  "libuuidv7-v0.2.0-nif-2.16-riscv64gc-unknown-linux-gnu.so.tar.gz" => "sha256:4aff1dc5d14e42ad938a4aa869233b68874f131c4365d08ba0baf9a1e017c8e4",
+  "libuuidv7-v0.2.0-nif-2.16-x86_64-apple-darwin.so.tar.gz" => "sha256:0f59a531c52fc86efefc7f8d11ae0f11d4e904329813b5ac446f2e2a1091aecc",
+  "libuuidv7-v0.2.0-nif-2.16-x86_64-unknown-linux-gnu.so.tar.gz" => "sha256:8f25f041bf18df1eccae7e5ff58586f2b1831cbcf0130998a15d8a97f2e1f35c",
+  "libuuidv7-v0.2.0-nif-2.16-x86_64-unknown-linux-musl.so.tar.gz" => "sha256:aa8c623e03657a82f2dff16d56246139652f0cd462cb345c7e89a0f801c7a91c",
 }
