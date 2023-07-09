@@ -10,5 +10,8 @@ path = "src/lib.rs"
 crate-type = ["cdylib"]
 
 [dependencies]
-rustler = "0.29.0"
+rustler = { version = "0.29", default-features = false, features = [
+  "derive",
+  "nif_version_2_15",
+] }
 uuid = { version = "1.3.4", features = ["v7"] }

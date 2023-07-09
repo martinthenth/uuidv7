@@ -8,16 +8,13 @@ defmodule UUIDv7 do
   Thanks to Rust, it is ~72% faster in generating version 7 UUIDs than the Elixir implementation
   of version 4 UUIDs by Ecto. See the benchmarks for more details.
 
-  > The underlying Rust library marks the v7 UUID implementation as experimental, so please be aware
-  > that it _could_ change; but you will be notified of that in the [CHANGELOG](https://github.com/martinthenth/uuidv7/blob/main/CHANGELOG.md). (23-06-2023)
-
   ## Installation
 
   The package can be installed by adding `uuidv7` to your list of dependencies in `mix.exs`:
 
   ```elixir
   def deps do
-    [{:uuidv7, "~> 0.1.0"}]
+    [{:uuidv7, "~> 0.2"}]
   end
   ```
 
