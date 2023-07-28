@@ -17,7 +17,7 @@ The package can be installed by adding `uuidv7` to your list of dependencies in 
 
 ```elixir
 def deps do
-  [{:uuidv7, "~> 0.1.0"}]
+  [{:uuidv7, "~> 0.2.0"}]
 end
 ```
 
