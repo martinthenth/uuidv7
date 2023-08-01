@@ -103,18 +103,20 @@ defmodule UUIDv7 do
   use UUIDv7.Type
 
   @doc """
-  Generates a random, version 7 UUID.
+  Generates a version 7 UUID.
   """
   @spec generate() :: t()
   def generate, do: :erlang.nif_error(:nif_not_loaded)
 
   @doc """
-  Generates a random, version 7 UUID based on the timestamp (ms).
+  Generates a version 7 UUID based on the timestamp (ms).
   """
   @spec generate(non_neg_integer()) :: t()
   def generate(ms), do: generate_from_ms(ms)
 
-  @doc false
+  @doc """
+  Generates a version 7 UUID based on the timestamp (ms).
+  """
   @spec generate_from_ms(non_neg_integer()) :: t()
   def generate_from_ms(_ms), do: :erlang.nif_error(:nif_not_loaded)
 
