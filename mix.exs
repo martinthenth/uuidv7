@@ -26,7 +26,7 @@ defmodule UUIDv7.MixProject do
 
   defp deps do
     [
-      {:rustler, "~> 0.29.0"},
+      {:rustler, "~> 0.30.0"},
       {:ecto, "~> 3.10"},
       {:credo, "~> 1.6", only: [:dev, :test], runtime: false},
       {:dialyxir, "~> 1.0", only: [:dev], runtime: false},
