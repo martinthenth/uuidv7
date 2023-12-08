@@ -1,7 +1,12 @@
+# 0.2.2
+
+- Add more build targets for the NIFs
+- Build NIFs for version 2.16 and 2.17
+
 # 0.2.1
 
 - Add more build targets for the NIFs
-- Build NIFs for version 2.17
+- Build NIFs for version 2.16
 
 # 0.2.0
 

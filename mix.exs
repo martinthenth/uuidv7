@@ -1,7 +1,7 @@
 defmodule UUIDv7.MixProject do
   use Mix.Project
 
-  @version "0.2.1"
+  @version "0.2.2"
   @source_url "https://github.com/martinthenth/uuidv7"
   @changelog_url "https://github.com/martinthenth/uuidv7/blob/main/CHANGELOG.md"
 
@@ -26,14 +26,14 @@ defmodule UUIDv7.MixProject do
 
   defp deps do
     [
-      {:rustler, "~> 0.30.0"},
-      {:ecto, "~> 3.10"},
+      {:benchee, "~> 1.1", only: :dev},
       {:credo, "~> 1.6", only: [:dev, :test], runtime: false},
       {:dialyxir, "~> 1.0", only: [:dev], runtime: false},
+      {:ecto, "~> 3.10"},
       {:ex_doc, "~> 0.27", only: :dev, runtime: false},
-      {:benchee, "~> 1.1", only: :dev},
-      {:uniq, "~> 0.1", only: :dev},
-      {:rustler_precompiled, "~> 0.6"}
+      {:rustler, "~> 0.30.0", optional: true},
+      {:rustler_precompiled, "~> 0.7"},
+      {:uniq, "~> 0.1", only: :dev}
     ]
   end
 

@@ -1,9 +1,6 @@
 [target.'cfg(target_os = "macos")']
 rustflags = ["-C", "link-arg=-undefined", "-C", "link-arg=dynamic_lookup"]
 
-[target.'cfg(any(unix))']
-rustflags = ["--cfg", "uuid_unstable"]
-
 # See https://github.com/rust-lang/rust/issues/59302
 [target.x86_64-unknown-linux-musl]
 rustflags = ["-C", "target-feature=-crt-static"]
