@@ -89,15 +89,9 @@ defmodule UUIDv7 do
     otp_app: :uuidv7,
     crate: "uuidv7",
     base_url: "https://github.com/martinthenth/uuidv7/releases/download/v#{@version}",
-    targets: [
-      "aarch64-unknown-linux-gnu",
-      "aarch64-apple-darwin",
-      "riscv64gc-unknown-linux-gnu",
-      "x86_64-apple-darwin",
-      "x86_64-unknown-linux-gnu",
-      "x86_64-unknown-linux-musl"
-    ],
-    nif_versions: ["2.16"],
+    nif_versions: ["2.16", "2.17"],
+    targets:
+      Enum.uniq(["aarch64-unknown-linux-musl" | RustlerPrecompiled.Config.default_targets()]),
     force_build: System.get_env("FORCE_BUILD") in ["1", "true"],
     version: @version
 
