@@ -1,7 +1,7 @@
 defmodule UUIDv7.MixProject do
   use Mix.Project
 
-  @version "0.2.2"
+  @version "0.2.1"
   @source_url "https://github.com/martinthenth/uuidv7"
   @changelog_url "https://github.com/martinthenth/uuidv7/blob/main/CHANGELOG.md"
 
