@@ -31,7 +31,7 @@ defmodule UUIDv7.MixProject do
       {:dialyxir, "~> 1.0", only: [:dev], runtime: false},
       {:ecto, "~> 3.10"},
       {:ex_doc, "~> 0.27", only: :dev, runtime: false},
-      {:rustler, "~> 0.30.0", optional: true},
+      {:rustler, "~> 0.32.1", optional: true},
       {:rustler_precompiled, "~> 0.7"},
       {:uniq, "~> 0.1", only: :dev}
     ]
