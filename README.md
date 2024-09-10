@@ -1,5 +1,10 @@
 # UUIDv7
 
+[![CI](https://github.com/martinthenth/uuidv7/actions/workflows/elixir.yml/badge.svg)](https://github.com/martinthenth/uuidv7/actions/workflows/elixir.yml)
+[![Hex.pm](https://img.shields.io/hexpm/v/uuidv7)](https://hex.pm/packages/uuidv7)
+[![Hex.pm](https://img.shields.io/hexpm/dt/uuidv7)](https://hex.pm/packages/uuidv7)
+[![Hex.pm](https://img.shields.io/hexpm/l/uuidv7)](https://github.com/martinthenth/uuidv7/blob/main/LICENSE)
+
 A UUID v7 implementation and `Ecto.Type` for Elixir.
 
 The RFC for the version 7 UUID: [RFC 9562](https://datatracker.ietf.org/doc/rfc9562/).
