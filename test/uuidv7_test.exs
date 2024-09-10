@@ -11,8 +11,7 @@ defmodule UUIDv7Test do
     test "casts the binary to string" do
       assert UUIDv7.cast(
                <<1, 136, 229, 144, 13, 202, 124, 237, 169, 13, 195, 131, 131, 118, 190, 203>>
-             ) ==
-               {:ok, "0188e590-0dca-7ced-a90d-c3838376becb"}
+             ) == {:ok, "0188e590-0dca-7ced-a90d-c3838376becb"}
     end
 
     test "casts the string to string" do
@@ -25,11 +24,26 @@ defmodule UUIDv7Test do
     end
   end
 
-  describe "dump/2" do
+  describe "cast!/1" do
+    test "casts the binary to string" do
+      assert UUIDv7.cast!(
+               <<1, 136, 229, 144, 13, 202, 124, 237, 169, 13, 195, 131, 131, 118, 190, 203>>
+             ) == "0188e590-0dca-7ced-a90d-c3838376becb"
+    end
+  end
+
+  describe "dump/1" do
     test "dumps the string to a binary" do
       assert UUIDv7.dump("0188e590-0dca-7ced-a90d-c3838376becb") ==
                {:ok,
                 <<1, 136, 229, 144, 13, 202, 124, 237, 169, 13, 195, 131, 131, 118, 190, 203>>}
+    end
+  end
+
+  describe "dump!/1" do
+    test "dumps the string to a binary" do
+      assert UUIDv7.dump("0188e590-0dca-7ced-a90d-c3838376becb") ==
+               <<1, 136, 229, 144, 13, 202, 124, 237, 169, 13, 195, 131, 131, 118, 190, 203>>
     end
   end
 
@@ -44,6 +58,20 @@ defmodule UUIDv7Test do
       assert_raise ArgumentError, fn ->
         UUIDv7.load("0188e590-0dca-7ced-a90d-c3838376becb")
       end
+    end
+  end
+
+  describe "load!/1" do
+    test "loads the binary into a string" do
+      assert UUIDv7.load(
+               <<1, 136, 229, 144, 13, 202, 124, 237, 169, 13, 195, 131, 131, 118, 190, 203>>
+             ) == "0188e590-0dca-7ced-a90d-c3838376becb"
+    end
+  end
+
+  describe "autogenerate/0" do
+    test "generates a string UUID" do
+      assert is_binary(UUIDv7.autogenerate())
     end
   end
 
@@ -71,9 +99,9 @@ defmodule UUIDv7Test do
     end
   end
 
-  describe "generate_from_ms/1" do
+  describe "generate/1" do
     test "generates an UUID" do
-      str_uuid = UUIDv7.generate_from_ms(1_687_467_090_902)
+      str_uuid = UUIDv7.generate(1_687_467_090_902)
       raw_uuid = UUIDv7.dump!(str_uuid)
 
       assert String.starts_with?(str_uuid, "0188e4e0-63d6-7")
@@ -92,9 +120,15 @@ defmodule UUIDv7Test do
     end
   end
 
-  describe "autogenerate/0" do
-    test "generates a string UUID" do
-      assert is_binary(UUIDv7.autogenerate())
+  describe "bingenerate/0" do
+    test "to do" do
+      assert false
+    end
+  end
+
+  describe "bingenerate/1" do
+    test "to do" do
+      assert false
     end
   end
 end

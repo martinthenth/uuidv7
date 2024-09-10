@@ -17,7 +17,7 @@ defmodule UUIDv7 do
   In your database schema, change primary key attribute from `:binary_id` to `UUIDv7`:
 
   ```elixir
-  def App.Schemas.User do
+  def MyApp.Schemas.User do
     @primary_key {:id, UUIDv7, autogenerate: true}
   end
   ```
@@ -36,6 +36,7 @@ defmodule UUIDv7 do
   @type raw :: <<_::128>>
 
   @doc false
+  @spec type() :: :uuid
   def type, do: :uuid
 
   defdelegate cast(value), to: Ecto.UUID
@@ -50,25 +51,37 @@ defmodule UUIDv7 do
 
   defdelegate load!(value), to: Ecto.UUID
 
+  @doc false
+  @spec autogenerate() :: t()
+  def autogenerate, do: generate()
+
   @doc """
   Generates a version 7 UUID.
   """
   @spec generate() :: t()
-  def generate, do: :erlang.nif_error(:nif_not_loaded)
+  def generate(), do: Ecto.UUID.cast!(bingenerate())
 
   @doc """
   Generates a version 7 UUID based on the timestamp (ms).
   """
   @spec generate(non_neg_integer()) :: t()
-  def generate(ms), do: generate_from_ms(ms)
+  def generate(ms), do: Ecto.UUID.cast!(bingenerate(ms))
 
   @doc """
-  Generates a version 7 UUID based on the timestamp (ms).
+  Generates a version 7 UUID in the binary format.
   """
-  @spec generate_from_ms(non_neg_integer()) :: t()
-  def generate_from_ms(_ms), do: :erlang.nif_error(:nif_not_loaded)
+  @spec bingenerate() :: raw()
+  def bingenerate() do
+    <<u0::48, _::4, u1::12, _::2, u2::62>> = :crypto.strong_rand_bytes(16)
+    <<u0::48, 4::4, u1::12, 2::2, u2::62>>
+  end
 
-  @doc false
-  @spec autogenerate() :: t()
-  def autogenerate, do: generate()
+  @doc """
+  Generates a version 7 UUID in the binary format based on the timestamp (ms).
+  """
+  @spec bingenerate(non_neg_integer()) :: raw()
+  def bingenerate(_ms) do
+    <<u0::48, _::4, u1::12, _::2, u2::62>> = :crypto.strong_rand_bytes(16)
+    <<u0::48, 4::4, u1::12, 2::2, u2::62>>
+  end
 end
