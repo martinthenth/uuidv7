@@ -1,7 +1,7 @@
 defmodule UUIDv7.MixProject do
   use Mix.Project
 
-  @version "0.2.1"
+  @version "1.0.0"
   @source_url "https://github.com/martinthenth/uuidv7"
   @changelog_url "https://github.com/martinthenth/uuidv7/blob/main/CHANGELOG.md"
 
@@ -29,7 +29,7 @@ defmodule UUIDv7.MixProject do
       {:benchee, "~> 1.1", only: :dev},
       {:credo, "~> 1.6", only: [:dev, :test], runtime: false},
       {:dialyxir, "~> 1.0", only: [:dev], runtime: false},
-      {:ecto, "~> 3.10"},
+      {:ecto, "~> 3.12"},
       {:ex_doc, "~> 0.27", only: :dev, runtime: false},
       {:uniq, "~> 0.1", only: :dev}
     ]
@@ -44,9 +44,6 @@ defmodule UUIDv7.MixProject do
   end
 
   defp docs do
-    [
-      main: "UUIDv7",
-      extras: ["README.md"]
-    ]
+    [main: "UUIDv7", extras: ["README.md"]]
   end
 end
