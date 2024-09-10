@@ -12,7 +12,7 @@ defmodule UUIDv7.MixProject do
       elixir: "~> 1.13",
       start_permanent: Mix.env() == :prod,
       deps: deps(),
-      description: "A UUID v7 implementation and Ecto.Type for Elixir - based on Rust",
+      description: "A UUID v7 implementation and Ecto.Type for Elixir",
       source_ref: @version,
       source_url: @source_url,
       docs: docs(),
@@ -31,8 +31,6 @@ defmodule UUIDv7.MixProject do
       {:dialyxir, "~> 1.0", only: [:dev], runtime: false},
       {:ecto, "~> 3.10"},
       {:ex_doc, "~> 0.27", only: :dev, runtime: false},
-      {:rustler, "~> 0.30.0", optional: true},
-      {:rustler_precompiled, "~> 0.7"},
       {:uniq, "~> 0.1", only: :dev}
     ]
   end
@@ -41,19 +39,7 @@ defmodule UUIDv7.MixProject do
     [
       maintainers: ["Martin Nijboer"],
       licenses: ["MIT"],
-      links: %{"GitHub" => @source_url, "Changelog" => @changelog_url},
-      files: [
-        "lib",
-        "native/uuidv7/.cargo",
-        "native/uuidv7/src",
-        "native/uuidv7/Cargo*",
-        "checksum-*.exs",
-        ".formatter.exs",
-        "mix.exs",
-        "README*",
-        "LICENSE*",
-        "CHANGELOG*"
-      ]
+      links: %{"GitHub" => @source_url, "Changelog" => @changelog_url}
     ]
   end
 
