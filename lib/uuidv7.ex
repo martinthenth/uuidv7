@@ -1,6 +1,10 @@
 defmodule UUIDv7 do
   @moduledoc """
-  A UUID v7 implementation and `Ecto.Type` for Elixir
+  A UUID v7 implementation and `Ecto.Type` for Elixir.
+
+  The RFC for the version 7 UUID: [RFC 9562](https://datatracker.ietf.org/doc/rfc9562/).
+
+  This library includes an `Ecto.Type` to (auto-)generate version 7 UUIDs in `Ecto.Schema` and beyond.
 
   ## Installation
 
@@ -8,7 +12,7 @@ defmodule UUIDv7 do
 
   ```elixir
   def deps do
-    [{:uuidv7, "~> 0.2"}]
+    [{:uuidv7, "~> 1.0"}]
   end
   ```
 
