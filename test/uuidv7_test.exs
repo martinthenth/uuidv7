@@ -11,8 +11,7 @@ defmodule UUIDv7Test do
     test "casts the binary to string" do
       assert UUIDv7.cast(
                <<1, 136, 229, 144, 13, 202, 124, 237, 169, 13, 195, 131, 131, 118, 190, 203>>
-             ) ==
-               {:ok, "0188e590-0dca-7ced-a90d-c3838376becb"}
+             ) == {:ok, "0188e590-0dca-7ced-a90d-c3838376becb"}
     end
 
     test "casts the string to string" do
@@ -25,11 +24,26 @@ defmodule UUIDv7Test do
     end
   end
 
-  describe "dump/2" do
+  describe "cast!/1" do
+    test "casts the binary to string" do
+      assert UUIDv7.cast!(
+               <<1, 136, 229, 144, 13, 202, 124, 237, 169, 13, 195, 131, 131, 118, 190, 203>>
+             ) == "0188e590-0dca-7ced-a90d-c3838376becb"
+    end
+  end
+
+  describe "dump/1" do
     test "dumps the string to a binary" do
       assert UUIDv7.dump("0188e590-0dca-7ced-a90d-c3838376becb") ==
                {:ok,
                 <<1, 136, 229, 144, 13, 202, 124, 237, 169, 13, 195, 131, 131, 118, 190, 203>>}
+    end
+  end
+
+  describe "dump!/1" do
+    test "dumps the string to a binary" do
+      assert UUIDv7.dump!("0188e590-0dca-7ced-a90d-c3838376becb") ==
+               <<1, 136, 229, 144, 13, 202, 124, 237, 169, 13, 195, 131, 131, 118, 190, 203>>
     end
   end
 
@@ -47,8 +61,22 @@ defmodule UUIDv7Test do
     end
   end
 
+  describe "load!/1" do
+    test "loads the binary into a string" do
+      assert UUIDv7.load!(
+               <<1, 136, 229, 144, 13, 202, 124, 237, 169, 13, 195, 131, 131, 118, 190, 203>>
+             ) == "0188e590-0dca-7ced-a90d-c3838376becb"
+    end
+  end
+
+  describe "autogenerate/0" do
+    test "generates a string uuid" do
+      assert is_binary(UUIDv7.autogenerate())
+    end
+  end
+
   describe "generate/0" do
-    test "generates an UUID" do
+    test "generates a string uuid" do
       str_uuid = UUIDv7.generate()
       raw_uuid = UUIDv7.dump!(str_uuid)
 
@@ -71,9 +99,9 @@ defmodule UUIDv7Test do
     end
   end
 
-  describe "generate_from_ms/1" do
-    test "generates an UUID" do
-      str_uuid = UUIDv7.generate_from_ms(1_687_467_090_902)
+  describe "generate/1" do
+    test "generates a binary uuid" do
+      str_uuid = UUIDv7.generate(1_687_467_090_902)
       raw_uuid = UUIDv7.dump!(str_uuid)
 
       assert String.starts_with?(str_uuid, "0188e4e0-63d6-7")
@@ -92,9 +120,97 @@ defmodule UUIDv7Test do
     end
   end
 
-  describe "autogenerate/0" do
-    test "generates a string UUID" do
-      assert is_binary(UUIDv7.autogenerate())
+  describe "bingenerate/0" do
+    test "generates a byte array uuid" do
+      raw_uuid = UUIDv7.bingenerate()
+      str_uuid = UUIDv7.load!(raw_uuid)
+
+      assert is_binary(raw_uuid)
+      assert UUIDv7.cast!(raw_uuid) == str_uuid
     end
   end
+
+  describe "bingenerate/1" do
+    test "generates a byte array uuid" do
+      raw_uuid = UUIDv7.bingenerate(1_687_467_090_902)
+      str_uuid = UUIDv7.load!(raw_uuid)
+
+      assert String.starts_with?(str_uuid, "0188e4e0-63d6-7")
+      assert UUIDv7.cast!(raw_uuid) == str_uuid
+    end
+  end
+
+  describe "timestamp/1" do
+    test "returns the timestamp for a bytes uuid" do
+      raw_uuid = UUIDv7.bingenerate(1_687_467_090_902)
+
+      assert UUIDv7.timestamp(raw_uuid) == 1_687_467_090_902
+    end
+
+    test "returns the timestamp for a string uuid" do
+      str_uuid = UUIDv7.generate(1_687_467_090_902)
+
+      assert UUIDv7.timestamp(str_uuid) == 1_687_467_090_902
+    end
+  end
+
+  describe "compliance" do
+    test "trailing numbers" do
+      Enum.reduce(0..65_535, "", fn i, prev_uuid ->
+        uuid = UUIDv7.generate(i)
+
+        d1 = div(i, 4096) |> rem(16)
+        d2 = div(i, 256) |> rem(16)
+        d3 = div(i, 16) |> rem(16)
+        d4 = rem(i, 16)
+
+        assert String.starts_with?(uuid, "00000000-#{e(d1)}#{e(d2)}#{e(d3)}#{e(d4)}-7")
+        assert uuid > prev_uuid
+
+        uuid
+      end)
+    end
+
+    test "hourly numbers" do
+      timestamp_1 = 1_725_981_620_571
+      timestamp_2 = timestamp_1 + 60 * 60 * 1000
+      timestamp_3 = timestamp_2 + 60 * 60 * 1000
+      timestamp_4 = timestamp_3 + 60 * 60 * 1000
+
+      assert String.starts_with?(UUIDv7.generate(timestamp_1), "0191dc85-795b-7")
+      assert String.starts_with?(UUIDv7.generate(timestamp_2), "0191dcbc-67db-7")
+      assert String.starts_with?(UUIDv7.generate(timestamp_3), "0191dcf3-565b-7")
+      assert String.starts_with?(UUIDv7.generate(timestamp_4), "0191dd2a-44db-7")
+    end
+
+    test "power of ten numbers" do
+      assert String.starts_with?(UUIDv7.generate(100_000), "00000001-86a0-7")
+      assert String.starts_with?(UUIDv7.generate(1_000_000), "0000000f-4240-7")
+      assert String.starts_with?(UUIDv7.generate(10_000_000), "00000098-9680-7")
+      assert String.starts_with?(UUIDv7.generate(100_000_000), "000005f5-e100-7")
+      assert String.starts_with?(UUIDv7.generate(1_000_000_000), "00003b9a-ca00-7")
+      assert String.starts_with?(UUIDv7.generate(10_000_000_000), "0002540b-e400-7")
+      assert String.starts_with?(UUIDv7.generate(100_000_000_000), "00174876-e800-7")
+      assert String.starts_with?(UUIDv7.generate(1_000_000_000_000), "00e8d4a5-1000-7")
+      assert String.starts_with?(UUIDv7.generate(10_000_000_000_000), "09184e72-a000-7")
+      assert String.starts_with?(UUIDv7.generate(100_000_000_000_000), "5af3107a-4000-7")
+    end
+  end
+
+  defp e(0), do: "0"
+  defp e(1), do: "1"
+  defp e(2), do: "2"
+  defp e(3), do: "3"
+  defp e(4), do: "4"
+  defp e(5), do: "5"
+  defp e(6), do: "6"
+  defp e(7), do: "7"
+  defp e(8), do: "8"
+  defp e(9), do: "9"
+  defp e(10), do: "a"
+  defp e(11), do: "b"
+  defp e(12), do: "c"
+  defp e(13), do: "d"
+  defp e(14), do: "e"
+  defp e(15), do: "f"
 end

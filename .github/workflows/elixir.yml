@@ -25,6 +25,6 @@ jobs:
       - run: mix format --check-formatted
       - run: mix deps.unlock --check-unused
       - run: mix deps.compile
-      - run: FORCE_BUILD=true mix compile --warnings-as-errors
+      - run: mix compile --warnings-as-errors
       - run: mix credo --strict
-      - run: FORCE_BUILD=true mix test
+      - run: mix test

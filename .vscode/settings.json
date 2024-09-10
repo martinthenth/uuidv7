@@ -1,3 +1,0 @@
-{
-  "rust-analyzer.linkedProjects": ["native/uuidv7/Cargo.toml"]
-}
