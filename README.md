@@ -1,12 +1,6 @@
 # UUIDv7
 
-A UUID v7 implementation and `Ecto.Type` for Elixir - based on Rust.
-
-This library defers the UUID v7 implementation to the Rust create [UUID](https://crates.io/crates/uuid)
-using an Erlang NIF. It includes an `Ecto.Type` to (auto-)generate version 7 UUIDs in `Ecto.Schema` and beyond.
-
-Thanks to Rust, it is ~72% faster in generating version 7 UUIDs than the Elixir implementation
-of version 4 UUIDs by Ecto. See the benchmarks for more details.
+A UUID v7 implementation and `Ecto.Type` for Elixir. The RFC for the version 7 UUID: [RFC 9562](https://datatracker.ietf.org/doc/rfc9562/). This library includes an `Ecto.Type` to (auto-)generate version 7 UUIDs in `Ecto.Schema` and beyond.
 
 ## Installation
 
@@ -14,7 +8,7 @@ The package can be installed by adding `uuidv7` to your list of dependencies in 
 
 ```elixir
 def deps do
-  [{:uuidv7, "~> 0.2"}]
+  [{:uuidv7, "~> 1.0"}]
 end
 ```
 

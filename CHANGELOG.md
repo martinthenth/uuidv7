@@ -1,9 +1,10 @@
 # 1.0.0
 
 - Removes the dependency on Rust, it is now an Elixir-based implementation
-  - A test suite was added to ensure the Elixir implementation remains compliant to the RFC
+  - Adds a test suite to ensure the implementation remains compliant to the RFC
   - RFC: [](https://datatracker.ietf.org/doc/rfc9562/)
 - Renames `generate_from_ms/1` to `generate/1`
+- Adds `timestamp/1` to get the timestamp (milliseconds) from a version 7 UUID.
 - Graduates the library to version `1.0.0` 🎉
 
 # 0.2.1

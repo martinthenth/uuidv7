@@ -59,29 +59,33 @@ defmodule UUIDv7 do
   Generates a version 7 UUID.
   """
   @spec generate() :: t()
-  def generate(), do: Ecto.UUID.cast!(bingenerate())
+  def generate, do: Ecto.UUID.cast!(bingenerate())
 
   @doc """
   Generates a version 7 UUID based on the timestamp (ms).
   """
   @spec generate(non_neg_integer()) :: t()
-  def generate(ms), do: Ecto.UUID.cast!(bingenerate(ms))
+  def generate(milliseconds), do: milliseconds |> bingenerate() |> Ecto.UUID.cast!()
 
   @doc """
   Generates a version 7 UUID in the binary format.
   """
   @spec bingenerate() :: raw()
-  def bingenerate() do
-    <<u0::48, _::4, u1::12, _::2, u2::62>> = :crypto.strong_rand_bytes(16)
-    <<u0::48, 4::4, u1::12, 2::2, u2::62>>
-  end
+  def bingenerate, do: :millisecond |> System.system_time() |> bingenerate()
 
   @doc """
   Generates a version 7 UUID in the binary format based on the timestamp (ms).
   """
   @spec bingenerate(non_neg_integer()) :: raw()
-  def bingenerate(_ms) do
-    <<u0::48, _::4, u1::12, _::2, u2::62>> = :crypto.strong_rand_bytes(16)
-    <<u0::48, 4::4, u1::12, 2::2, u2::62>>
+  def bingenerate(milliseconds) do
+    <<u1::12, u2::62, _::6>> = :crypto.strong_rand_bytes(10)
+    <<milliseconds::48, 7::4, u1::12, 2::2, u2::62>>
   end
+
+  @doc """
+  Extracts the timestamp (ms) from the version 7 UUID.
+  """
+  @spec timestamp(t() | raw()) :: non_neg_integer()
+  def timestamp(<<milliseconds::48, 7::4, _::76>>), do: milliseconds
+  def timestamp(<<_::288>> = uuid), do: uuid |> Ecto.UUID.dump!() |> timestamp()
 end

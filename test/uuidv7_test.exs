@@ -42,7 +42,7 @@ defmodule UUIDv7Test do
 
   describe "dump!/1" do
     test "dumps the string to a binary" do
-      assert UUIDv7.dump("0188e590-0dca-7ced-a90d-c3838376becb") ==
+      assert UUIDv7.dump!("0188e590-0dca-7ced-a90d-c3838376becb") ==
                <<1, 136, 229, 144, 13, 202, 124, 237, 169, 13, 195, 131, 131, 118, 190, 203>>
     end
   end
@@ -63,20 +63,20 @@ defmodule UUIDv7Test do
 
   describe "load!/1" do
     test "loads the binary into a string" do
-      assert UUIDv7.load(
+      assert UUIDv7.load!(
                <<1, 136, 229, 144, 13, 202, 124, 237, 169, 13, 195, 131, 131, 118, 190, 203>>
              ) == "0188e590-0dca-7ced-a90d-c3838376becb"
     end
   end
 
   describe "autogenerate/0" do
-    test "generates a string UUID" do
+    test "generates a string uuid" do
       assert is_binary(UUIDv7.autogenerate())
     end
   end
 
   describe "generate/0" do
-    test "generates an UUID" do
+    test "generates a string uuid" do
       str_uuid = UUIDv7.generate()
       raw_uuid = UUIDv7.dump!(str_uuid)
 
@@ -100,7 +100,7 @@ defmodule UUIDv7Test do
   end
 
   describe "generate/1" do
-    test "generates an UUID" do
+    test "generates a binary uuid" do
       str_uuid = UUIDv7.generate(1_687_467_090_902)
       raw_uuid = UUIDv7.dump!(str_uuid)
 
@@ -121,14 +121,36 @@ defmodule UUIDv7Test do
   end
 
   describe "bingenerate/0" do
-    test "to do" do
-      assert false
+    test "generates a byte array uuid" do
+      raw_uuid = UUIDv7.bingenerate()
+      str_uuid = UUIDv7.load!(raw_uuid)
+
+      assert is_binary(raw_uuid)
+      assert UUIDv7.cast!(raw_uuid) == str_uuid
     end
   end
 
   describe "bingenerate/1" do
-    test "to do" do
-      assert false
+    test "generates a byte array uuid" do
+      raw_uuid = UUIDv7.bingenerate(1_687_467_090_902)
+      str_uuid = UUIDv7.load!(raw_uuid)
+
+      assert String.starts_with?(str_uuid, "0188e4e0-63d6-7")
+      assert UUIDv7.cast!(raw_uuid) == str_uuid
+    end
+  end
+
+  describe "timestamp/1" do
+    test "returns the timestamp for a bytes uuid" do
+      raw_uuid = UUIDv7.bingenerate(1_687_467_090_902)
+
+      assert UUIDv7.timestamp(raw_uuid) == 1_687_467_090_902
+    end
+
+    test "returns the timestamp for a string uuid" do
+      str_uuid = UUIDv7.generate(1_687_467_090_902)
+
+      assert UUIDv7.timestamp(str_uuid) == 1_687_467_090_902
     end
   end
 end
