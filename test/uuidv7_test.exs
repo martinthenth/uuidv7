@@ -96,7 +96,7 @@ defmodule UUIDv7Test do
   end
 
   describe "generate/1" do
-    test "generates a binary uuid" do
+    test "generates a string uuid" do
       assert "0188e4e0-63d6-7" <> _ = UUIDv7.generate(1_687_467_090_902)
     end
 
@@ -113,13 +113,13 @@ defmodule UUIDv7Test do
   end
 
   describe "bingenerate/0" do
-    test "generates a byte array uuid" do
+    test "generates a binary uuid" do
       assert <<_::48, 7::4, _::12, 2::2, _::62>> = UUIDv7.bingenerate()
     end
   end
 
   describe "bingenerate/1" do
-    test "generates a byte array uuid" do
+    test "generates a binary uuid" do
       raw_uuid = UUIDv7.bingenerate(1_687_467_090_902)
       str_uuid = UUIDv7.load!(raw_uuid)
 
@@ -129,7 +129,7 @@ defmodule UUIDv7Test do
   end
 
   describe "timestamp/1" do
-    test "returns the timestamp for a bytes uuid" do
+    test "returns the timestamp for a binary uuid" do
       raw_uuid = UUIDv7.bingenerate(1_687_467_090_902)
 
       assert UUIDv7.timestamp(raw_uuid) == 1_687_467_090_902
